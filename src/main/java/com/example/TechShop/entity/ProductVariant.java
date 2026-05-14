@@ -6,34 +6,40 @@ import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.type.SqlTypes;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 @Entity
-@Table(name = "product_variant",indexes = {
-        @Index(name = "idx_variant_product",columnList = "product_id")
+@Table(name = "product_variants", indexes = {
+        @Index(name = "idx_variant_product", columnList = "product_id")
 })
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class ProductVariant extends BaseEntity{
+public class ProductVariant extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "product_id",nullable = false)
+    @JoinColumn(name = "product_id", nullable = false)
     private Product product;
 
     @JdbcTypeCode(SqlTypes.JSON)
-    @Column(name = "attributes",columnDefinition = "json",nullable = false)
-    private Map<String,String> attributes;
+    @Column(name = "attributes", columnDefinition = "json", nullable = false)
+    private Map<String, String> attributes;
 
-    @Column(precision = 38,scale = 2,nullable = false)
+    @Column(precision = 38, scale = 2, nullable = false)
     private BigDecimal price;
 
-    @Column(name = "stock_quantity",nullable = false)
+    @Column(name = "stock_quantity", nullable = false)
     private Integer stockQuantity;
+
+    @OneToMany(mappedBy = "productVariant")
+    @Builder.Default
+    private List<OrderDetail> orderDetails = new ArrayList<>();
 }
