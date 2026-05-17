@@ -5,10 +5,6 @@ import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 
 public record UpdateUserRequest(
-        @NotBlank(message = "Password không được để trống")
-        @Size(min = 6, max = 120, message = "Password phải từ 6-120 ký tự")
-        String password,
-
         @NotBlank(message = "Tên không được để trống")
         @Size(min = 2, max = 250, message = "Tên phải từ 2-250 ký tự")
         String name,
