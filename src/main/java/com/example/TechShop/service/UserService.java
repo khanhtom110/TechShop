@@ -63,6 +63,13 @@ public class UserService {
         return userRepository.findByNameContainingIgnoreCase(keyword, pageable).map(UserListResponse::from);
     }
 
+    @Transactional(readOnly = true)
+    public UserDetailResponse getUserById(Long id) {
+        User user = userRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("User", "id", id));
+        return UserDetailResponse.from(user);
+    }
+
     @Transactional
     public UserDetailResponse updateUser(Long id, UpdateUserRequest request) {
         User user = userRepository.findById(id)
@@ -77,6 +84,7 @@ public class UserService {
         user.setEmail(request.email());
         user.setAddress(request.address());
         user.setDescription(request.description());
+        user.setPhone(request.phone());
 
         User savedUser = userRepository.save(user);
         return UserDetailResponse.from(savedUser);
@@ -93,13 +101,13 @@ public class UserService {
     }
 
     @Transactional
-    public UserDetailResponse updateUserPassword(Long id, UpdatePasswordRequest request){
+    public UserDetailResponse updateUserPassword(Long id, UpdatePasswordRequest request) {
         User user = userRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("User", "id", id));
-        if(!passwordEncoder.matches(request.oldPassword(), user.getPassword())){
+        if (!passwordEncoder.matches(request.oldPassword(), user.getPassword())) {
             throw new RuntimeException("Mật khẩu không chính xác");
         }
-        if(!request.confirmPassword().equals(request.newPassword())){
+        if (!request.confirmPassword().equals(request.newPassword())) {
             throw new RuntimeException("Xác nhận mật khẩu không khớp");
         }
 

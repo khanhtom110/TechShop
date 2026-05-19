@@ -30,7 +30,7 @@ public class GlobalExceptionHandler {
 
         return ResponseEntity
                 .badRequest()
-                .body(ApiResponse.errorWithData(400, "Dữ liệu nhập vòa chưa đúng", errors));
+                .body(ApiResponse.errorWithData(400, "Dữ liệu nhập vào chưa đúng", errors));
     }
 
     @ExceptionHandler(Exception.class)
