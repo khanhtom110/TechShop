@@ -41,8 +41,8 @@ INSERT INTO categories (name, status, category_id, created_at, updated_at) VALUE
 
 -- 6. Insert Users (Password giả định đã mã hóa hoặc để tạm)
 INSERT INTO users (username, password, full_name, email, status, created_at, updated_at) VALUES
-                                                                                             ('admin', '$2a$10$xyz', 'Nguyễn Viết Khánh', 'admin@techshop.com', 1, NOW(), NOW()),
-                                                                                             ('customer1', '$2a$10$', 'User Test 01', 'user1@gmail.com', 1, NOW(), NOW());
+                                                                                             ('admin', '$2a$10$ReDg52ER/jc7HLur.KLu6eZgVr.YJWg19Wv2SPMw/GyMQ8XmtotM.', 'Nguyễn Viết Khánh', 'admin@techshop.com', 1, NOW(), NOW()),
+                                                                                             ('customer1', '$2a$10$G5J2445NCgbb37RBOkCXyO31.Xqufje84fMmOs86Nl6E3OxLxWgc6', 'User Test 01', 'user1@gmail.com', 1, NOW(), NOW());
 
 -- Map Role cho User (Admin ID 1 - Role Admin ID 1)
 INSERT INTO user_roles (user_id, role_id) VALUES (1, 1), (2, 2);

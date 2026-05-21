@@ -3,6 +3,7 @@ package com.example.TechShop.controller;
 import com.example.TechShop.constant.ApiPath;
 import com.example.TechShop.dto.request.LoginRequest;
 import com.example.TechShop.dto.request.LogoutRequest;
+import com.example.TechShop.dto.response.ApiResponse;
 import com.example.TechShop.dto.response.CommonResponse;
 import com.example.TechShop.dto.response.LoginResponse;
 import com.example.TechShop.service.AuthService;
@@ -22,14 +23,14 @@ public class AuthController {
     private final AuthService authService;
 
     @PostMapping("/auth/login")
-    public ResponseEntity<LoginResponse> login(@Valid @RequestBody LoginRequest request) {
+    public ResponseEntity<ApiResponse<LoginResponse>> login(@Valid @RequestBody LoginRequest request) {
         LoginResponse response = authService.authentication(request);
-        return ResponseEntity.ok(response);
+        return ResponseEntity.ok(ApiResponse.ok("Thành công",response));
     }
 
     @PostMapping("/auth/logout")
-    public ResponseEntity<CommonResponse> logout(@Valid @RequestBody LogoutRequest request) {
+    public ResponseEntity<ApiResponse<CommonResponse>> logout(@Valid @RequestBody LogoutRequest request) {
         CommonResponse response = authService.logout(request);
-        return ResponseEntity.ok(response);
+        return ResponseEntity.ok(ApiResponse.ok("Thành công",response));
     }
 }

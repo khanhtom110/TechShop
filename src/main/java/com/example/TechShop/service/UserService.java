@@ -7,6 +7,7 @@ import com.example.TechShop.dto.response.UserDetailResponse;
 import com.example.TechShop.dto.response.UserListResponse;
 import com.example.TechShop.entity.Role;
 import com.example.TechShop.entity.User;
+import com.example.TechShop.exception.extended.AppException;
 import com.example.TechShop.exception.extended.DuplicateResourceException;
 import com.example.TechShop.exception.extended.ResourceNotFoundException;
 import com.example.TechShop.repository.RoleRepository;
@@ -84,7 +85,6 @@ public class UserService {
         user.setEmail(request.email());
         user.setAddress(request.address());
         user.setDescription(request.description());
-        user.setPhone(request.phone());
 
         User savedUser = userRepository.save(user);
         return UserDetailResponse.from(savedUser);
@@ -101,18 +101,25 @@ public class UserService {
     }
 
     @Transactional
-    public UserDetailResponse updateUserPassword(Long id, UpdatePasswordRequest request) {
+    public void updateUserPassword(Long id, UpdatePasswordRequest request) {
         User user = userRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("User", "id", id));
         if (!passwordEncoder.matches(request.oldPassword(), user.getPassword())) {
-            throw new RuntimeException("Mật khẩu không chính xác");
+            throw new AppException(401,"Mật khẩu không chính xác");
         }
         if (!request.confirmPassword().equals(request.newPassword())) {
-            throw new RuntimeException("Xác nhận mật khẩu không khớp");
+            throw new AppException(401,"Xác nhận mật khẩu không khớp");
         }
 
         user.setPassword(passwordEncoder.encode(request.newPassword()));
-        User savedUser = userRepository.save(user);
-        return UserDetailResponse.from(savedUser);
+        userRepository.save(user);
+    }
+
+    @Transactional
+    public UserListResponse toggleUserStatus(Long id){
+        User user=userRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("User","id",id));
+        user.setStatus(!user.getStatus());
+        return UserListResponse.from(user);
     }
 }

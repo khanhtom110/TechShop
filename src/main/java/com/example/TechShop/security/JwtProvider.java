@@ -1,5 +1,6 @@
 package com.example.TechShop.security;
 
+import com.example.TechShop.entity.Role;
 import com.example.TechShop.entity.User;
 import com.example.TechShop.repository.InvalidatedTokenRepository;
 import com.nimbusds.jose.JOSEException;
@@ -34,7 +35,7 @@ public class JwtProvider {
             JWSHeader jwsHeader = new JWSHeader(JWSAlgorithm.HS512);
 
             List<String> stringRoles = user.getRoles().stream()
-                    .map(role -> "ROLE_" + role.getName())
+                    .map(Role::getName)
                     .toList();
 
             JWTClaimsSet jwtClaimsSet = new JWTClaimsSet.Builder()
