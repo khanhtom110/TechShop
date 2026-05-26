@@ -28,6 +28,9 @@ public record CreateUserRequest(
         @Size(max = 500, message = "Địa chỉ không quá 500 ký tự")
         String address,
 
+        @Size(max = 255,message = "Ảnh không quá 255 ký tự")
+        String avatar,
+
         @Size(max = 1000, message = "Mô tả không quá 1000 ký tự")
         String description
 ) {

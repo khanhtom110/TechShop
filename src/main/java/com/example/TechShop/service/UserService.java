@@ -48,6 +48,7 @@ public class UserService {
                 .phone(request.phone())
                 .email(request.email())
                 .address(request.address())
+                .avatar(request.avatar())
                 .description(request.description())
                 .roles(new HashSet<>(List.of(defaultRole)))
                 .build();
@@ -84,6 +85,7 @@ public class UserService {
         user.setPhone(request.phone());
         user.setEmail(request.email());
         user.setAddress(request.address());
+        user.setAvatar(request.avatar());
         user.setDescription(request.description());
 
         User savedUser = userRepository.save(user);

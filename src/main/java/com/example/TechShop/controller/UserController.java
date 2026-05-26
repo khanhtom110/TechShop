@@ -33,7 +33,7 @@ public class UserController {
         return ResponseEntity.ok(ApiResponse.ok("Thành công", userDetailResponse));
     }
 
-    @PostMapping("/users/change-password")
+    @PutMapping("/users/password")
     public ResponseEntity<ApiResponse<Void>> updateUserPassword(
             @Valid @RequestBody UpdatePasswordRequest request
     ) {
@@ -42,7 +42,7 @@ public class UserController {
         return ResponseEntity.ok(ApiResponse.ok("Thành công", null));
     }
 
-    @PostMapping("/users/update-profile")
+    @PutMapping("/users/profile")
     public ResponseEntity<ApiResponse<UserDetailResponse>> updateMyProfile(
             @Valid @RequestBody UpdateUserRequest request
     ) {
@@ -54,7 +54,7 @@ public class UserController {
 
     //Method for Admin
 
-    @PostMapping("/admin/create-user")
+    @PostMapping("/admin/users")
     public ResponseEntity<ApiResponse<UserDetailResponse>> createUser(
             @Valid @RequestBody CreateUserRequest request) {
         return ResponseEntity
