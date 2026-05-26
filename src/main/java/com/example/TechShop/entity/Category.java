@@ -23,10 +23,6 @@ public class Category extends BaseEntity {
     @JoinColumn(name = "category_id")
     private Category parentCategory;
 
-    @OneToMany(mappedBy = "parentCategory", fetch = FetchType.LAZY)
-    @Builder.Default
-    private List<Category> subCategories = new ArrayList<>();
-
     @Column(nullable = false, length = 255)
     private String name;
 
