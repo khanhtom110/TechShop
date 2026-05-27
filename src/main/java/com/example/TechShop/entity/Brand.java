@@ -25,6 +25,13 @@ public class Brand extends BaseEntity {
     @Column(name = "logo_url", length = 255)
     private String logoUrl;
 
+    @Column(length = 1000)
+    private String description;
+
+    @Column(nullable = false)
+    @Builder.Default
+    private Boolean status=Boolean.TRUE;
+
     @OneToMany(mappedBy = "brand", fetch = FetchType.LAZY)
     @Builder.Default
     private List<Product> products = new ArrayList<>();
