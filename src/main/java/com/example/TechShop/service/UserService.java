@@ -93,13 +93,10 @@ public class UserService {
     }
 
     @Transactional
-    public UserDetailResponse deleteUser(Long id) {
+    public void deleteUser(Long id) {
         User user = userRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("User", "id", id));
         user.setStatus(Boolean.FALSE);
-
-        User savedUser = userRepository.save(user);
-        return UserDetailResponse.from(savedUser);
     }
 
     @Transactional

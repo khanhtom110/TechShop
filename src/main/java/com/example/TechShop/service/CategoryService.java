@@ -10,7 +10,6 @@ import com.example.TechShop.repository.CategoryRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -58,6 +57,9 @@ public class CategoryService {
         return CategoryResponse.from(category);
     }
 
+//    @Transactional(readOnly = true)
+//    public ProductResponse
+
     @Transactional
     public CategoryResponse updateCategory(Long id, CategoryRequest request) {
         Category category = categoryRepository.findById(id)
@@ -91,12 +93,11 @@ public class CategoryService {
     }
 
     @Transactional
-    public CategoryResponse deleteCategory(Long id) {
+    public void deleteCategory(Long id) {
         Category category = categoryRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Category", "id", id));
 
         category.setStatus(false);
-        return CategoryResponse.from(category);
     }
 
     @Transactional
