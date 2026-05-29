@@ -20,12 +20,12 @@ public class ProductImage extends BaseEntity {
     @JoinColumn(name = "product_id")
     private Product product;
 
-    @Column(name = "image_url", length = 500)
+    @Column(name = "image_url", nullable = false, length = 500)
     private String imageUrl;
 
     @Column(name = "is_primary")
     private Boolean isPrimary;
 
     @Column(name = "display_index")
-    private int displayIndex;
+    private Integer displayIndex;
 }
