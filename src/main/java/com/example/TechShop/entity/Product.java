@@ -49,7 +49,7 @@ public class Product extends BaseEntity {
     private BigDecimal salePrice;
 
     @JdbcTypeCode(SqlTypes.JSON)
-    @Column(name = "specifications", columnDefinition = "json")
+    @Column(name = "specifications")
     private Map<String, Object> specifications;
 
     @OneToMany(mappedBy = "product", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)

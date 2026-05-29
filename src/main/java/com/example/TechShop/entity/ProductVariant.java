@@ -39,6 +39,10 @@ public class ProductVariant extends BaseEntity {
     @Column(name = "stock_quantity", nullable = false)
     private Integer stockQuantity;
 
+    @Column(nullable = false)
+    @Builder.Default
+    private Boolean status = Boolean.TRUE;
+
     @OneToMany(mappedBy = "productVariant")
     @Builder.Default
     private List<OrderDetail> orderDetails = new ArrayList<>();
