@@ -22,10 +22,6 @@ public class Cart extends BaseEntity {
     @JoinColumn(name = "user_id", unique = true)
     private User user;
 
-    //Khach vang lai
-    @Column(name = "session_id", length = 255)
-    private String sessionId;
-
     @OneToMany(mappedBy = "cart", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     @Builder.Default
     private List<CartItem> cartItems = new ArrayList<>();

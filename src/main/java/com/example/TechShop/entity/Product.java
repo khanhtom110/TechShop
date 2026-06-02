@@ -1,5 +1,6 @@
 package com.example.TechShop.entity;
 
+import com.example.TechShop.exception.extended.AppException;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.JdbcTypeCode;
@@ -81,5 +82,16 @@ public class Product extends BaseEntity {
     public void removeImage(ProductImage image){
         productImages.remove(image);
         image.setProduct(null);
+    }
+
+    public String getPrimaryImageUrl(){
+        if(productImages.isEmpty()){
+            return null;
+        }
+        return productImages.stream()
+                .filter(image -> Boolean.TRUE.equals(image.getIsPrimary()))
+                .map(ProductImage::getImageUrl)
+                .findFirst()
+                .orElse(productImages.getFirst().getImageUrl());
     }
 }
