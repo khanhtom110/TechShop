@@ -35,7 +35,6 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
         //Khách vãng lai
         if (authHeader == null || !authHeader.startsWith("Bearer ")) {
-            log.info("Không tìm thấy Bearer Token: {}", request.getRequestURI());
             filterChain.doFilter(request, response);
             return;
         }

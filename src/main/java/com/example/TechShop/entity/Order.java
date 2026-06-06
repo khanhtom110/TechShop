@@ -52,20 +52,21 @@ public class Order extends BaseEntity {
     @Column(name = "description", length = 1000)
     private String description;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "order_status_id")
-    private OrderStatus orderStatus;
+    @Enumerated(EnumType.STRING)
+    @Builder.Default
+    @Column(name = "order_status", nullable = false, length = 50)
+    private OrderStatus orderStatus = OrderStatus.PENDING;
 
     @OneToMany(mappedBy = "order", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     @Builder.Default
     private List<OrderDetail> orderDetailList = new ArrayList<>();
 
-    public void addOrderDetail(OrderDetail orderDetail){
+    public void addOrderDetail(OrderDetail orderDetail) {
         orderDetailList.add(orderDetail);
         orderDetail.setOrder(this);
     }
 
-    public void removeOrderDetail(OrderDetail orderDetail){
+    public void removeOrderDetail(OrderDetail orderDetail) {
         orderDetailList.remove(orderDetail);
         orderDetail.setOrder(null);
     }
